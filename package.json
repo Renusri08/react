@@ -1,12 +1,1 @@
-{
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
-  "devDependencies": {
-    "@parcel/resolver-default": "^2.15.4"
-  },
-  "browserlist":[
-    "last 2 versions"
-  ]
-}
+{"name":"react","version":"1.0.0","desription":"hi hello","scripts":{"start":"parcel index.html","build":"parcel build index.html","test":"jest"},"dependencies":{"react":"^18.3.1","react-dom":"^18.3.1"},"devDependencies":{"@parcel/resolver-default":"^2.15.4","parcel":"^2.15.4"},"browserlist":["last 2 versions"]}

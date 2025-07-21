@@ -1,3 +1,9 @@
+# 
+actually our browsers have javascript engine by default
+but to run react we use cdn links or we install in our local system wi
+
+
+
 # npm:(does not stand for node package manager, just check official npm website)
 It's a tool that comes with Node.js and helps you install, manage, and share JavaScript packages (libraries) — including React, Express, Lodash, etc.
 in npm all packages are hosted we can directly using that command npm install.
@@ -112,3 +118,83 @@ browserlist":[
     "last 2 firefox version"
   ]
 if we use browserlist in package.json like above, it supports the last 2 versions here.
+
+
+# SCRIPTS
+
+till now we opened our project in devloper mode(or executed) using the command NPX PARCEL INDEX.HTML but now by writting this is in package.json
+"scripts":{
+    "start":"parcel index.html"
+    "build":"parcel build index.html"
+    "test":"jest"
+  }
+# npm run start or npm start
+we have replaced npx parcel  index.html with just npm start or npm run start.
+we defined like we can use "start" keyword in the place of "parcel index.html" while executing "npm run start" this is enough, and in the same way "build","test" also.
+
+# BABEL
+
+IT IS A TRANSPLIER CONVERTS JSX TO JAVASCRIPT CODE AND JS CODE FROM ONE VERSION TO ANOTHER VERSIONS.
+
+# IN JSX (LIKE HTML CODE WE USED TO CREATE REACT ELEMENTS)
+WE WRITE LIKE THIS
+const jsxheading = <h1 id="heading">created react element using jsx</h1>;
+const jsxheading = <h1 id="heading" className="head">created react element using jsx</h1>;
+here we use className in tag attribute not class.
+in jsx  for attributes we have to use camelCase (first letter small and from then every word start letter capital)
+if the jsx code is more than one line we have to wrap it in ()paranthesis(babel needs to understand start and end of the jsx)
+
+# REACT COMPONENTS
+TWO TYPES:
+CLASS BASED COMPONENET-OLD WAY
+FUNCIONAL COMPONENT-NEW WAY(MOSTLY USED PRESENT)
+this is a js function(it may be arrow function also) which returns a piece of jsx code.
+
+this is how we render react elements
+# root.render(element);
+this is how we render react components
+# root.render(<componentname/>) 
+and while defining function (react component) its name should start with capital letter.
+
+# component composititon
+rendering and using one component in another component.
+
+
+# differences between react element and react component
+A React Element is a plain JavaScript object that describes what you want to render on the screen.
+
+A React Component is a function or class that returns React elements.
+
+React Elements are created using React.createElement() or JSX like <h1>Hello</h1>.
+
+React Components are defined using functions or classes, such as function Welcome() { return <h1>Hello</h1>; }.
+
+React Elements are static and do not contain any logic or state.
+
+React Components can include logic, accept props, and manage state.
+
+React Elements are the building blocks of the UI.
+
+React Components are blueprints that generate elements dynamically.
+
+A React Element represents a single UI node.
+
+A React Component can return multiple elements and structure complex UIs.
+
+React Elements are like snapshots of UI.
+
+React Components are like reusable templates that generate those snapshots.
+
+Let me know if you want code examples or analogies for these too!
+
+# JSX
+JSX protects against injection attacks by escaping any embedded JavaScript expressions before rendering them in the browser, so malicious code cannot be executed as HTML or script.
+
+# wrapping more than one elements in single parent for jsx code
+you do need one single parent wrapper around multiple JSX elements.
+
+JSX must return only one parent element. So when you're returning multiple elements (like an <h1> and an <h3>), you must wrap them in something.
+
+
+
+
