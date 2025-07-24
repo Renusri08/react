@@ -143,6 +143,7 @@ const jsxheading = <h1 id="heading" className="head">created react element using
 here we use className in tag attribute not class.
 in jsx  for attributes we have to use camelCase (first letter small and from then every word start letter capital)
 if the jsx code is more than one line we have to wrap it in ()paranthesis(babel needs to understand start and end of the jsx)
+jsx is embedded in < > or () in javascript code.
 
 # REACT COMPONENTS
 TWO TYPES:
@@ -193,8 +194,85 @@ JSX protects against injection attacks by escaping any embedded JavaScript expre
 # wrapping more than one elements in single parent for jsx code
 you do need one single parent wrapper around multiple JSX elements.
 
-JSX must return only one parent element. So when you're returning multiple elements (like an <h1> and an <h3>), you must wrap them in something.
+JSX must return only one parent element. So when you're returning multiple elements (like an <h1> and an <h3>), you must wrap them in something like in div tag or <>....</>.
+
+# PROPS
+like passing arguments to a function we pass props to react components.
+passing data to component(to make it dynamic)
+
+# food oredering app
+/**
+ * header
+ *  -logo
+ *  -nav items
+ * body
+ *  -search
+ *  -restaurantcontainer
+ *  -restaurantcard
+ *      -image
+ *      -name
+ *      -star rating,nameof restaurant,cuisine,deliverytime
+ * footer
+ *  -copyright
+ *  -links
+ *  -address
+ *  -contact
+ */
+
+# CONFIG DRIVEN UI
+A Config-Driven UI is a design approach where the structure and behavior of the UI is controlled by a configuration object (usually JSON) instead of hardcoded JSX.
+
+UI IS POWERED BY DATA.
 
 
 
+# unique key
+In React, when rendering a list of elements (like using .map()), each child must have a unique key prop. This is crucial for React’s reconciliation algorithm, which determines how to update the DOM efficiently.
+In React, key is a special prop used to uniquely identify elements in a list.
+Keys help React efficiently update and re-render only changed items.
+Each sibling in a list must have a unique, stable key (like an ID).
+Using index as a key is discouraged if the list can reorder or change.
+Without proper keys, React may misbehave or show a warning in the console.
 
+
+
+# why react
+the everything we do in react can be done using normal html,css,javascript.
+but the beauty of using a framework or library is its makes developers experience easy,its makes you write less code and do more on the web page, this is what major job of library or framework.
+
+# the best practice
+the best practice is breaking down to multiplefiles by making seperate files for seperate componeents.actually real world apps or websites have multiple components, we have to make it structured, its better to create different files for different components.
+
+# file structure in react
+the file strucure in react is upto the developers choice and convinience on how they want to structure their files, but its better to avoid too much nesting.here we created src, components folders.
+it is better practice to name the file with exact component name if we define a component inside it.
+
+# .js or .jsx 
+anything we can use let us prefer .js extension for this js files.
+
+# never
+never ever keep hard coded data (example reslist,cdn link ofour app logo)into the app or components file directly ,keep them in utils or config.js.
+WE CREATED UTILS FOLDER(WHICH IS LIKE UTILITIES THAT CAN BE USED ALL OVER ACROSS OUR PROJECT)
+
+# there  are two types of exports, imports
+
+-DEFAULT EXPORT/IMPORT
+
+export default Component;
+import Component from "path";
+
+-NAMED EXPORT.IMPORT;(this is mainly used when we want to export more than one (element or component or variable etc) from a single file.)
+
+export const Component=(props)=>{
+
+}//like this while defining only we should preceed const keyword with export.
+
+AND WHILE IMPORTING THIS TYPE OF EXPORTED ONE
+import {Component} from "path"; here definitely we should specify component name as it is same as what we defined in the { } while importing.
+
+# USE STATE
+useState is a React Hook that lets function components have their own state (data that can change over time). It returns an array with two elements: the current state value and a function to update it. For example, const [count, setCount] = useState(0); creates a count variable initialized to 0, and setCount updates it. When setCount is called, React re-renders the component with the new value. Here's a simple example:
+
+const [count, setCount] = useState(0);  
+<button onClick={() => setCount(count + 1)}>Click me</button>  
+Each click increases the count, and React updates the UI automatically.

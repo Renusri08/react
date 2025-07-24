@@ -24,7 +24,9 @@ const jsxheading = (
       created react element using jsx
     </h1>
     {elem}
+     {/**ou do need one single parent wrapper around multiple JSX elements.*/}
     </>
+   
 );
 
 //jsx is not normal javascript which browser can execute directly.
@@ -55,6 +57,7 @@ const Hii=()=>(
     <h1 className="hi">hi friends</h1>
    {jsxheading}
    {elem}
+   {/** here i can use {componentname()} similar to function call in js and like this also <componentname></componentname> */}
     </div>
 );
 /**like in above function we have rendered and used headingcomponent (react component) 
