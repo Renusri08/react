@@ -254,6 +254,24 @@ anything we can use let us prefer .js extension for this js files.
 never ever keep hard coded data (example reslist,cdn link ofour app logo)into the app or components file directly ,keep them in utils or config.js.
 WE CREATED UTILS FOLDER(WHICH IS LIKE UTILITIES THAT CAN BE USED ALL OVER ACROSS OUR PROJECT)
 
+# map and filter functions in js
+Exactly! In JavaScript, functions like map(), filter(), and reduce() are higher-order functions—they take another function as an argument. The function you pass is called a callback function.
+Because JavaScript treats functions as first-class citizens—you can pass them around just like any other value (e.g., numbers, strings, arrays).
+EXAMPLE FOR MAP FUNCTION:
+{listOfRestaurants.map((restaurant)=>(
+ <RestaurantCard key={restaurant.id} resData={restaurant}/>
+))}
+EXAMPLE FOR FILTER:
+const filteredList=listOfRestaurants.filter(
+(res)=>res.avgRating>4
+);
+
+In JavaScript, map() and filter() are methods of arrays. That means:
+
+They are built-in functions that belong to the Array prototype, so you can call them on any array.
+
+
+
 # there  are two types of exports, imports
 
 -DEFAULT EXPORT/IMPORT
@@ -273,6 +291,180 @@ import {Component} from "path"; here definitely we should specify component name
 # USE STATE
 useState is a React Hook that lets function components have their own state (data that can change over time). It returns an array with two elements: the current state value and a function to update it. For example, const [count, setCount] = useState(0); creates a count variable initialized to 0, and setCount updates it. When setCount is called, React re-renders the component with the new value. Here's a simple example:
 
-const [count, setCount] = useState(0);  
-<button onClick={() => setCount(count + 1)}>Click me</button>  
-Each click increases the count, and React updates the UI automatically.
+const [listOfRestaurants,setListOfRestaurants]=useState(reslist);#THIS IS NOTHING BUT ARRAY DESTRUTURING. 
+WE CAN WRITE ABOVE THING LIKE BELOW ALSO:
+                    const arr=useState(reslist);
+                    const listOfRestaurants=arr[0];
+                    const setListOfRestaurant=arr[1];
+                    
+THE CALLING OF THIS SETLISTOFRESTAURANTS() FUNCTION TRIGGERS THE REACT TO RERENDER THAT COMPONENT.(AND STORE IT AS VIRTUAL DOM)
+HERE reslist is mockData.
+
+<button className="filter-btn"
+                onClick={()=>{
+                    console.log("button clicked")
+                    const filteredList=listOfRestaurants.filter(
+                        (res)=>res.avgRating>4
+                    );
+                    setListOfRestaurants(filteredList);//we have to update that state variable 
+                    console.log(listOfRestaurants);
+                }}>Top Rated restaurants</button>
+HERE ACCORDING TO THIS CODE OF BUTTON IF THAT  STATE VARIBALE(ListOfRestaurants) UPDATED THEN THE react will rerender the component in which that state variable is used, which updates the ui automatically once state variable updated.
+<div className="res-container">
+                {listOfRestaurants.map((restaurant)=>(
+                  <RestaurantCard key={restaurant.id} resData={restaurant}/>
+                ))}
+            </div>
+
+then here on frontend we get only  filtered restaurants of avgRating>4.
+# //HERE WE JUST ON A BUTTON CLICK WE CHANGED THE UI OR FILTERD THE LIST OF RESTAURANTS(WITH VERY LESS CODE AND OPTIMIZED VERISON)
+//OUR APP IS NOT FAST BECAUSE OF REACT,REACT IS ONLY GOOD AT DOM MANIPULATIONS(OR OPERATIONS).
+
+# WHY REACT IS FAST
+BECAUSE REACT IS DOING EFFICIENT DOM MANIPULATION , BECAUSE IT IS USING VIRTUAL DOM.
+
+# VIRTUAL DOM
+In React, the Virtual DOM (VDOM) is a virtual copy of the real DOM(hTML) kept in memory.
+It helps React update the UI efficiently.
+#
+🔁 How It Works (Step-by-step):
+Initial Render:
+React creates a Virtual DOM tree from your JSX.
+
+State/Props Change:
+When your app's data changes (like state or props), React re-renders the Virtual DOM.
+(REACT TRACKS THIS STATE VARIABLE(REACT KEEPS AN WYE ON THAT STATE VARIABLE)).
+
+Diffing:
+React compares the new Virtual DOM with the previous one (this is called "diffing").
+FINDING THE DIFFERENCE BETWEEN TWO OBJECTS IS BETTER THAN TWO LONG HTML CODES.
+
+Reconciliation:
+React finds the minimal set of changes needed.
+
+Real DOM Update:
+React updates only those parts of the real DOM, instead of re-rendering everything.
+WHICH MAKES IT FAST.
+
+# REACT USES RECONCILIATION ALGORITHM(ALSO KNOWN AS REACT FIBRE)
+Reconciliation is the process React uses to update the UI when your data (state/props) changes.
+
+React creates a new Virtual DOM.
+
+It compares it with the old Virtual DOM.
+
+Then it finds what changed (using a diffing algorithm).
+
+It updates only the changed parts in the real DOM.
+
+📌 Goal: Make updates fast and efficient.
+
+
+# monolithis vs microservice
+# Monolithic Architecture:
+A monolithic application is built as a single unified unit.
+we have to develop entire application in any one language.
+
+✅ Pros:
+Simple to develop (at first) and deploy as one unit.
+
+Easier debugging and testing – everything is in one place.
+
+Good for small to medium-sized applications.
+
+
+
+❌ Cons:
+Hard to scale parts independently.
+
+Tightly coupled – changes in one part can affect the entire app.
+
+Slower development as the codebase grows.
+
+Deployments become risky and time-consuming.
+
+# microservice(this is the mmostly used one present)
+A microservice application is built as a collection of small, independent services, each responsible for a specific feature.
+
+✅ Pros:
+Independent development and deployment of services.
+
+Easier to scale services independently.
+
+Fault isolation – one service can fail without crashing the whole app.
+
+Better suited for large and complex systems.
+
+here example:
+we can have different teams for backend , authentication,forontend,database,and etc independently.
+no need to use one particular project backend can use Golang,frontend can use react and like that.
+
+❌ Cons:
+More complex infrastructure (e.g., API gateways, service discovery).
+
+Harder debugging and testing due to distributed nature.
+
+Requires good inter-service communication design (usually via HTTP or messaging queues).
+
+# ⚙️ 1. Load → Render → API → Render
+🔄 Flow:
+Page loads
+UI is rendered immediately (with loading spinners or placeholders)
+API call is made
+UI re-renders with actual data
+
+✅ Pros:
+Faster perceived load time (user sees something immediately)
+Can show skeleton screens or spinners
+Good for client-side rendering (CSR)
+
+❌ Cons:
+May render twice, which can be inefficient
+Initial UI may be empty or show loaders
+
+💡 Used In:
+Most React apps (CSR)
+# use effect
+SPAs using useEffect or similar hook
+
+
+# ⚙️ 2. Load → API → Render
+🔄 Flow:
+Page loads
+API is called before rendering
+UI is rendered only once, with real data
+
+✅ Pros:
+No flickering or second render
+More efficient — only one render
+Good for server-side rendering (SSR) or static site generation (SSG)
+
+❌ Cons:
+Slower initial response
+User may see blank screen longer (if no preloading)
+
+💡 Used In:
+Next.js SSR/SSG
+Static HTML generated with data
+Pre-rendering during build time
+
+# react uses multiple render which makes it good.
+
+# USE EFFECT
+useEffect is a React Hook used to run side effects in function components — like fetching data from an API, setting up subscriptions, or updating the DOM.
+SYNTAX:
+useEffect(() => {
+  // Your side effect logic here
+}, [dependencies]);//this function is called automatically after that component in which this is used is renderd.
+
+🔄 Behind the scenes:
+Page loads.
+useEffect does not run during the first render.
+React renders <p>Loading users...</p>.(like something which is retuened in that function)
+After render, useEffect triggers, fetches data from API.
+setUsers(data) updates state → triggers re-render.(here we update statevariable using for example a function called setUsers()).
+This time, React renders the list of users.
+
+# shimmer ui
+Shimmer UI (also called Skeleton Loading or Placeholder Loading) is a visual loading effect that mimics the layout of the final content using animated gray blocks or gradients. It's often used in web and mobile apps to show users that content is loading, giving the feel of faster performance and better UX.
+before the actual data is rendered from api or any other source (that means in the time gap between of loading data from any api)

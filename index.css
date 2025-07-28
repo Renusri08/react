@@ -50,3 +50,10 @@
     white-space: normal; /* allows wrapping */
     word-break: break-word;
   }
+.login{
+    padding:1px 1px;
+    cursor: pointer;
+}
+.filter{
+    display:flex;
+}

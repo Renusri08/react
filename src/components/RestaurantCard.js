@@ -1,9 +1,6 @@
 import { CDN_URL } from "../utils/constant";
 
 
-const styleCard={
-    backgroundColor:"rgb(255, 255, 255)",
-};/** css  */
 
 const RestaurantCard=(props)=>{
     const{resData}=props;
@@ -11,7 +8,7 @@ const RestaurantCard=(props)=>{
     const{cloudinaryImageId,name,avgRating,cuisines,deliveryTime,costForTwo}=resData;
     
     return(
-        <div className="res-card" style={styleCard}>
+        <div className="res-card" >
             <img className="res-logo" alt="res-logo" src={CDN_URL+cloudinaryImageId}></img>
             <div className="resinfo">
             {/**<h3>{resData.name}</h3>
