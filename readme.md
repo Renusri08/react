@@ -1,8 +1,8 @@
 # 
 actually our browsers have javascript engine by default
-but to run react we use cdn links or we install in our local system wi
+but to run react we use cdn links or we install in our local system with some commands.
 
-
+# root of the entire application is day4.js(file)
 
 # npm:(does not stand for node package manager, just check official npm website)
 It's a tool that comes with Node.js and helps you install, manage, and share JavaScript packages (libraries) — including React, Express, Lodash, etc.
@@ -12,15 +12,10 @@ in npm all packages are hosted we can directly using that command npm install.
 # Yes, all essential details of your React (or any Node.js) project are stored in PACKAGE.JSON, and it guides npm on:
 
 What to install
-
 How to run your app
-
 How to build it
-
 What version to use
-
 And even which tools are needed (like linters or testing libs)
-
 PACKAGE.JSON is a configuration for npm
 
 
@@ -77,8 +72,8 @@ otherwise we will get error.
 # PARCEL
 
 when we make changes to any file in our build project ,in  host server where our file is running automatically refreshes because of this parcel module.
-parcel creates or unique uses of parcel
--Dev Build
+parcel creates or unique uses of parcel.
+-Dev Build.
 -Local Server(parcel includes a development server out of the box just run parcel index.html to get started)
 -HMR -hot module replacement(refreshes the page automatically)
 -File wathcing algorithm -written in c++
@@ -290,6 +285,8 @@ import {Component} from "path"; here definitely we should specify component name
 
 # USE STATE
 useState is a React Hook that lets function components have their own state (data that can change over time). It returns an array with two elements: the current state value and a function to update it. For example, const [count, setCount] = useState(0); creates a count variable initialized to 0, and setCount updates it. When setCount is called, React re-renders the component with the new value. Here's a simple example:
+//USE STATE IS USED TO CREATE LOCAL STATE VARIABLES INSIDE  FUNCTIONAL COMPONENTS.
+//NEVER CREATE USE STATE LOCAL VARIABLED IF ELSE CONDITIONS,FOR LOOPS ETC.
 
 const [listOfRestaurants,setListOfRestaurants]=useState(reslist);#THIS IS NOTHING BUT ARRAY DESTRUTURING. 
 WE CAN WRITE ABOVE THING LIKE BELOW ALSO:
@@ -457,6 +454,10 @@ useEffect(() => {
   // Your side effect logic here
 }, [dependencies]);//this function is called automatically after that component in which this is used is renderd.
 
+//if there is no dependency array=>useEffect is called on every render
+//if dependency array is empty =[]=>useEffect is called on initial render(just once)
+//if dependency array is [btnNamReact]=>called everytime btnNameReact is updated.
+
 🔄 Behind the scenes:
 Page loads.
 useEffect does not run during the first render.
@@ -468,3 +469,406 @@ This time, React renders the list of users.
 # shimmer ui
 Shimmer UI (also called Skeleton Loading or Placeholder Loading) is a visual loading effect that mimics the layout of the final content using animated gray blocks or gradients. It's often used in web and mobile apps to show users that content is loading, giving the feel of faster performance and better UX.
 before the actual data is rendered from api or any other source (that means in the time gap between of loading data from any api)
+
+# filtering the restauarants with average rating>4(USE STATE IS USED)
+# login button changes to logout when we click on that(HERE ALSO USE STATE IS USED)
+# search bar for restaurants with restaurant name.(USE STATE IS USED)
+
+# ROUTING
+const appRouter=createBrowserRouter([
+{
+    path:"/",
+    element:<AppLayout/>
+},
+{
+    path:"/about",
+    element:<About/>
+}
+])
+//LIKE THIS WE CAN USE LIST OF PATHS AND WE CAN DEFINE THE ELEMENT I THAT PATH.
+
+//whenever we try to access url or path which is not defined react will generate an 404 error found page which is predefined on its own.
+
+# Hook (is nothing but a react function);#useRouterError
+REact router dom gives us a specific react hook(useRouteError) to handle router error,
+example usage:
+import { useRouteError } from "react-router-dom";
+const Error=()=>{
+    const err=useRouteError();
+    console.log(err);
+    return (
+        <div>
+            <h1>OOPs!!</h1>
+            <h2>Something went wrong</h2>
+            <h3>{err.statusText}</h3>
+        </div>
+    );
+};
+export default Error;
+
+# children routes
+for example if we want header to stick when we navigate to different pages in the website , it is possible using children routes.
+EXAMPLE:
+const appRouter=createBrowserRouter([
+{
+    path:"/",
+    element:<AppLayout />,
+    children:[
+        {
+            path:"/",
+            element:<Body/>,
+        },
+        {
+            path:"/about",
+            element:<About />,
+        },
+        {
+            path:"/contact",
+            element:<ContactUS/>
+        },
+    ],
+    errorElement:<Error/>,
+},
+]);
+
+
+# never use anchor tag(<a href="">) in react whenever you want to add links 
+# link component
+in react we have link component in react-router-dom
+Single Page Applications (SPA):
+SPAs load a single HTML page and dynamically update content using JavaScript, without full page reloads. This results in faster navigation and better user experience.(refreshes the components in the same page like changing the component also)
+
+React Router <Link> Component:
+Used for internal navigation in SPAs. It changes the URL without reloading the page, preserving the app state.
+example:
+<Link to="/about">About</Link>
+
+HTML <a> Tag:
+Causes a full page reload when clicked. Not ideal for SPAs because it breaks the dynamic behavior.
+<a href="/about">About</a>
+Key Difference:
+
+<Link>: SPA-friendly, client-side routing.(REFRESHES THE COMPONENTS)
+
+<a>: Traditional, triggers full reload.(RELOADS THE PAGE)
+
+✅ Use <Link> from react-router-dom for internal links in Re
+
+
+
+#  2 types of Routing in web apps
+-Client side Routing
+-Server side Routing
+
+# CLINET SIDE ROUTING
+IN REACT WE ARE BUILDING SINGLE PAGE APPLICATIONS (WHICH IS CLIENT SIDE ROUTING NO NEED OF NETWORK AGAIN ONCE THE MAIN PAGE IS LOADED (ALL ARE LOADED AT ONCE SO NO NEED OF NETWORK TO NAVIGATE ))
+# IN REACT WE BUILD SINGLE PAGE APPLICATIONS (WHICH INCLUDES CLIENT SIDE ROUTING)
+
+Client-Side Routing:
+Handled by JavaScript in the browser (e.g., React Router).
+Loads a single HTML page and updates content dynamically without full page reloads.
+Faster navigation, better user experience.
+Example: React, Angular, Vue apps.
+
+Server-Side Routing:
+Every URL change sends a request to the server.
+Server returns a new HTML page for each route.
+Slower navigation due to full page reloads.
+
+Example: Traditional websites using PHP, Django, or Express with EJS.
+
+🔁 Key Difference:
+
+Client-side: Routes handled in browser.
+Server-side: Routes handled on server.
+
+# {useParams}
+react hook which is used to get and store parameters passed in the url or path in a js variable.
+
+# class base components
+->We dont use now a days, but useful in interviews
+->If we know this, we can easily understand the react functional components
+->It is just a normal JS class
+->class UserClass extends React.Component
+->React class has a render method
+->It is a class that which has some render which written some piece of jsx
+
+
+# Life cycle of a parent child relationship
+->About us page is parent component
+->Useclasss is there in about us
+->when about page starts rendering onto out web page, it starts rendering the JSX. It goes line by line and see userClass components, and it starts to load useClass now 
+->Whenever the class is instantiated, the cosntructor is called
+->After that, render is called
+1)Parent constructor
+2)Parent Render
+  ->1)child Constructor
+  ->2)child Render
+  ->3)child ComponentDidMountain
+3)Parent componenDidMountain
+
+
+# componentDidMountain()
+->componentDidMount() is a lifecycle method in React class-based components.
+executed after render function is executed,this will be executed
+
+# We don't make API calls in render() or return because:
+render/return should be pure – no side effects like API calls.
+They run every time the component re-renders, causing infinite loops.
+API calls are asynchronous, but render needs synchronous output (JSX).
+Calling APIs in render slows down UI and breaks React’s flow.
+useEffect is the right place for side effects like fetching data.
+#
+API calls are side effects and should be handled in useEffect.
+useEffect runs after the component renders, preventing repeated calls.
+It ensures the API call runs only when needed (e.g., on mount).
+The dependency array controls when the effect should re-run.
+This keeps rendering and data fetching logic separate and clean.
+
+# when i called multiple classes in single component 
+# LIFE CYCLE WHEN THERE ARE MULTIPLE CHILDREN(REFER TO ABOUT.JS ONCE)
+Parent constructor of that parent component.
+Parent Render of that component.
+
+    -Chusmalatha(class)child constructor of child component.
+    -Chusmalatha(class)child render of child component.
+
+    -Renusri(class)child constructor of child component.
+    -Renusri(class)child render of child component.
+
+  -Chusmalatha(class)child component Did Mount of child component.
+  -Renusri(class)child component Did Mount of child component.
+
+Parent Render of parent component.
+
+
+# React Lifecycle: Two Main Phases
+1. Render Phase(EVERYTHING HAPPENS IN VIRTUAL DOM)
+🔸 What happens:
+React calls the component function (or render() in class).
+Prepares the UI (creates virtual DOM).
+Does NOT touch the actual DOM yet.
+It’s pure and synchronous.
+FOR FUNCTIONS:(ORDER OF EXECUTION)
+        RETURN()
+FOR CLASS:(ORDER OF EXECUTION)
+        CONSTRUCTOR()
+        RENDER()
+
+2. Commit Phase(MANIPULATES REAL DOM)
+🔸 What happens:
+React applies changes to the real DOM.
+Runs side effects like useEffect, componentDidMount, etc.
+Can schedule updates, DOM mutations, refs, etc.
+FOR CLASS:(ORDER OF EXECUTION) IN THIS PHASE:-
+        COMPONENTDIDMOUNT()
+        COMPONENTDIDUPDATE()
+FOR FUNCTIONS:(ORDER OF EXECUTION)
+        USEEFFECT()
+
+Render-->   Calculates what to show -->	JSX, virtual DOM.
+Commit ->	Applies it to the real DOM --> Effects, refs, updates.
+
+#
+/**
+ * 
+ * --MOUNTING---
+ * constructor(with dummy data)
+ * Render(dummy)
+ *    <HTML Dummy>
+ * Component Did Mount
+ *    <Api call>
+ *    <this.setState>
+ * 
+ * --UPDATE--CYCLE
+ * 
+ *  render(API data)
+ *  <HTML (new API data)>
+ *   --Component Did Update
+ * 
+ * --UNMOUNTING CYCLE
+ *   component Did Mount is called and then that component will be disappeared from DOM.
+ *    FOR EXAMPLE: when we are in about us now and if we click on contact link in header then
+ *    about us component will be unmounted and contact us component is mounted.
+ */
+
+
+
+# componentDidUpdate() is automatically called after setState() updates the state.
+🔍 Here's the flow:
+You call setState() ➝ this updates the state.
+React re-runs the render() method.
+After the DOM updates, React automatically calls componentDidUpdate().
+componentDidUpdate() is the perfect place to perform actions after the UI reflects changes — like scrolling, focusing, fetching, syncing, etc.
+
+
+# optimizing the code
+# single responsibility principle
+The Single Responsibility Principle (SRP) in React.js is a core design guideline derived from SOLID principles 
+(used in object-oriented programming), which states:
+A component should have only one reason to change.
+In React terms, this means that each component should focus on one specific piece 
+of functionality or responsibility. This improves readability, maintainability, testability, and reusability.
+
+# creating a custom(user defined) hook(utility function)(used for particular usecase)
+it's name is recommended to start with keyword use and we use this user defined hooks to make every component follow single responsbility principle. 
+# in RestaurantMenu.js there are two responsibilities fetching data and then showcasing it in ui(to make it single responsible we have created useRestaurantMenu hook(in utils folder)  which takes restaurant id and returns data of that particular restaurant.)
+
+# adding css there are 4 ways
+1) normal css defining with classname
+2) scss or sass
+3) tailwind css
+4) predefinrd libraries like chakra.ui,materialistic.ui,bootstrap like these contain the predefined styling for every component which we can directly use importing.
+
+# tailwind css(consider this as primary css framework to make our application look good)exploring the tailwind css.(this is mostly used today  to make our app beautiful)
+Tailwind utility classes directly inside your JSX or HTML—no external CSS files or inline styles needed.
+
+# higher order component
+A Higher Order Component (HOC) in React is a function that takes a component and returns a new component with enhanced behavior or additional props.
+  # Use Cases
+Reuse common logic (authentication, loading state, logging)
+Add props or lifecycle methods
+Modify rendering logic
+Inject data (e.g., Redux connect() is a HOC)
+
+# In accordion working(sharing the state between components)
+showIndex is a state variable used to track which category accordion is currently open.
+The state showIndex is declared in the parent component RestaurantMenu and passed down to each RestaurantCategory.
+This is an example of lifting state up, where the parent manages state needed by multiple child components.
+showItems is a boolean prop that checks if the current index matches showIndex to control visibility.
+setShowIndex toggles the currently open accordion; if clicked again, it closes the category.
+This approach ensures only one category is open at a time (controlled accordion behavior).
+The component uses conditional rendering to display items only when showItems is true.
+The logic enables clean and consistent UI state management for the accordion.
+
+# props drilling
+#
+
+
+# user context
+ What is UserContext in React?
+UserContext is a React Context API pattern used to share data globally across components without having to pass props manually at every level (called "prop drilling").
+
+🎯 When to Use Context?
+Use Context when many components need access to the same data, such as:
+Logged-in user info (UserContext)
+Theme settings (ThemeContext)
+Language settings (LocaleContext)
+
+It includes two main parts:
+
+Provider – Supplies the data
+Consumer – Accesses the data
+
+1. Provider: UserContext.Provider(refer to day4.js)
+What it does:
+Wraps around components to make data available to them.
+
+Where to use it:
+High up in the component tree (e.g., App.js or AppLayout.js)
+
+2. Consumer: UserContext.Consumer or useContext(UserContext)
+Reads context data inside components.
+In class based components we use UserContext.Consumer component call.(refer about.js)
+In React component we use useContext(UserContext) here useContext is a predefined hook.(refer to RestaurantCard.js)
+
+
+# redux(A SEPERATE LIBRARY WHICH WE BASICALLY INSTALL IN OUR PROJECT)
+(A PREDICTABLE STATE CONTAINER FOR JS APPS.)(REDUX IS LIKE A CENTRAL STORE FOR OUR APPS AND THAT STORE CONTAINS DIFFERENT SLICES)
+REDUX IS NOT MANDATORY IN SMALL SCALE APPLICATIONS,
+IT IS MAINLY USEFUL WHEN THERE ARE LOT OF READ AND WRITE OPERATIONS IN AN APPLICATION
+AND IF THERE IS LOT OF DATA TO MANAGE IT IS GOOD TO USE.
+# REDUX IS NOT THE ONLY LIBRARY WHICH IS USED TO MANAGE STATE.
+WE HAVE SIMILAR LIBRARIES LIKE REDUX EXAMPLE: ZUSTAND.
+AND THERE IS A LIBRARY REACT-REDUX TO BRIDGE THE GAP BETWEEN REACT AND REDUX.
+
+# REDUX LIFE CYCLE IN SIMPLE POINTS:
+1)User interacts with the app
+(e.g., clicks a button, types text)
+2)An action is dispatched
+This is a message that describes what happened.
+3)Reducer (FUNCTION) receives the action
+It decides how to update the state based on the action type.
+4)Reducer returns a new state
+Old state is never changed directly — a new state is created.
+5)Redux store is updated
+The store now holds the new updated state.
+6)UI components re-render
+Components subscribed to that state will automatically update and reflect the changes.
+
+# -install @reduxjs/toolkit and react-redux
+    (NOW IN OUR APP)
+  -Build our store
+  -Connect our store to our app
+  -Slice(cartSlice)
+  -dispatch(action)
+  -Selector
+
+# different ones
+onClick={()=>handleAddItem(item)}
+onClick={handleAddItem}
+onClick={handleAddItem(item)}
+
+
+# Controlled Component (React controls the value)
+The input value is stored in React state.
+You use useState and update it with onChange
+example:<input value={value} onChange={(e) => setValue(e.target.value)} />
+
+# Uncontrolled Component (Browser controls the value)
+The input value is stored in the DOM.
+You use ref to get the value when needed.
+Example:
+<input ref={inputRef} />
+
+Controlled = React controls the input
+Uncontrolled = DOM controls the input
+
+
+
+# Testing
+# Developer testing
+even a single line can mess up our code so testing is necessary.
+TWO TYPES OF TESTING:
+1)MANUAL TESTING
+2)TESTING USING CODE
+
+# TYPES OF TESTING (THAT DEVELOPER DO)
+    -unit testing
+    -Integration Testing
+    -End to End Testing-e2e testing
+
+#
+for this there is a library called  # (REACT TESTING LIBRARY) this build top on DOM testing library. 
+this react testing library also uses jest(seperate testing library).
+
+
+(actually all these will be installed if we may have created this react app using create React app command).
+
+# SETTING UP TESTING IN OUR APP:--
+
+      we install testing library using command:-
+      # npm i -D @testing-library/react
+      #  npm i -D jest
+      installing dependencies that are required for jest when we are using label.
+      visit jest official website you will find there these all steps to set up jest when we are using babel.
+      # npm install --save-dev babel-jest @babel/core @babel/preset-env
+    
+    BUT PARCEL ALREADY CONTAINS ITS OWN CONFIGURATION OF BABEL.NOW AS WE ADDED 
+    BABEL.CONFIG.JS FILE (so there will be a conflict between parcel and babel ,
+    this babel.congig.js overrides the existing babel configuration set by parcel.)
+
+      #  so configure parcel config file to disable default babel transpilation\
+      (here we added .parcelrc file)
+      #check with npm run test
+      #now jest configuration.(npx create-jest)
+      #install jsdom(npm install --save-dev jest-environment-jsdom)
+      #install @babel/preset-react with command(npm i -D @babel/preset-react) 
+      //we need to install above one if we want to use jsx in test files.
+      #include @babel/preset-react inside  babel config.
+
+#  Why use jsdom in a testing environment?
+jsdom is a JavaScript-based in-memory implementation of the browser's DOM and HTML standards, used in Node.js environments (like Jest). It simulates a web browser so you can run tests without needing a real browser.
+
+#__tests__(__(2 underscores)=dunder method)
+we write our test files in this folder.

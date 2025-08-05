@@ -113,6 +113,7 @@ const reslist=[
               "Chinese",
               "Lebanese"
             ],
+            "promoted": false,
             "avgRating": 4.3,
             "parentId": "13786",
             "avgRatingString": "4.3",
@@ -346,6 +347,7 @@ const reslist=[
               "South Indian",
               "Seafood"
             ],
+            "promoted": false,
             "avgRating": 4.3,
             "parentId": "612700",
             "avgRatingString": "4.3",
